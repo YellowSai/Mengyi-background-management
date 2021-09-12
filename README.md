@@ -1,5 +1,5 @@
 ## 功能
-简正服务端基础框架
+萌艺后台管理
 
 ## 第三方类库
 * 基础工具类（Hutool）：https://github.com/looly/hutool
