@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jianzheng.server.dao.UserDao">
+    <!-- 分页搜索 -->
+    <select id="pageSearch" resultType="com.jianzheng.server.po.User">
+        select * from user
+        <where>
+            <if test="keywords != null and keywords != ''">
+                characters like concat('%', #{keywords}, '%')
+            </if>
+            <if test="username != null and username != ''">
+                and username like concat('%', #{username}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

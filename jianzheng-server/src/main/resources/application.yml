@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: jianzheng-server
+  profiles:
+    active: '@profiles.active@'
+
+mybatis-plus:
+  mapper-locations: classpath:/mybatis/*.xml
+
+weixin:
+  appId: test
+  appSecret: test

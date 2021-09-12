@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jianzheng.server.dao.OrderDao">
+
+    <!-- 分页搜索 -->
+    <select id="pageSearch" resultType="com.jianzheng.server.po.Order">
+        select * from `order`
+        <where>
+            exist != 2
+            <if test="customer != null and customer != ''">
+                and customer like concat('%', #{customer}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and `status` = #{status}
+            </if>
+            <if test="keywords != null and keywords != ''">
+                and producer like concat('%', #{keywords}, '%')
+            </if>
+            <if test="startDate != null">
+                and start_time <![CDATA[ >= ]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                and (estimated_time <![CDATA[ <= ]]> #{endDate} or complete_time <![CDATA[ <= ]]> #{endDate})
+            </if>
+        </where>
+    </select>
+</mapper>

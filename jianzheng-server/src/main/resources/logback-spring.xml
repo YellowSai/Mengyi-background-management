@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="org.springframework.web" level="INFO"/>
+
+    <property name="logPath" value="/data/logs/jianzheng-server/"/>
+
+    <appender name="FILE-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}/jianzheng-server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--按天压缩-->
+            <fileNamePattern>${logPath}/jianzheng-server.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <!-- 保存1个月内的数据-->
+            <maxHistory>1</maxHistory>
+            <!--最多保留文件大小-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>[%p] | %d{yyyy-MM-dd HH:mm:ss.SSS} | %t | %X{traceId} | %C{1}:%M | %L | %m %n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="com.jianzheng" level="TRACE"/>
+    </springProfile>
+
+    <!-- 生产环境 -->
+    <springProfile name="prod">
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="com.jianzheng" level="INFO"/>
+    </springProfile>
+
+    <root level="info">
+        <appender-ref ref="FILE-OUT"/>
+    </root>
+
+</configuration>

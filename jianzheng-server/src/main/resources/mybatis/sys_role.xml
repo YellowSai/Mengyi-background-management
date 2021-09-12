@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jianzheng.server.dao.SysRoleDao">
+
+    <!-- 分页搜索 -->
+    <select id="pageSearch" resultType="com.jianzheng.server.po.SysRole">
+        select * from sys_role
+        <where>
+            <if test="keywords != null and keywords != ''">
+                role_name like concat('%', #{keywords}, '%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
